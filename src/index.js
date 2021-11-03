@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom';
 
 // CSS
 import './index.css';
+import { books } from './books';
+import Book from './Book';
+import { greeting } from '../src/testing/testing';
+
+//* above when we import a component (ie. Books) we can use whatever name we want with the correct path to the file; we just need to remember to 'return' the same name as we used here (regardless of the name of the component)
+//* IF however, we are just importing a variable from another file (i.e., a data set, or just a created variable) then we MUST wrap the variable or const name in brackets and use THAT exact name as defined in the path filename
 
 // stateless functional component
 // always return JSX
@@ -15,44 +21,18 @@ import './index.css';
 // formatting
 
 //setup objects array
-const books = [
-	{
-		img: 'https://images-na.ssl-images-amazon.com/images/I/517h-u1AQlL._SX482_BO1,204,203,200_.jpg',
-		title: 'I Love You to the Moon and Back',
-		author: 'Amelia Hayworth',
-	},
-
-	{
-		img: 'https://m.media-amazon.com/images/I/51iP-k3nWeL.jpg',
-		title: "The Judge's List",
-		author: 'John Grisham',
-	},
-];
 
 function BookList() {
+	console.log(greeting);
 	return (
 		<section className='booklist'>
 			{books.map((book) => {
-				const { img, title, author } = book;
-				return <Book book={book}></Book>;
+				return <Book key={book.id} {...book}></Book>;
 			})}
 			;
 		</section>
 	);
 }
 
-const Book = (props) => {
-	const { img, title, author } = props.book;
-	return (
-		<article className='book'>
-			<img src={img} alt='' />
-			<h1>{title}</h1>
-			<h3>{author}</h3>
-			{/* {children} */}
-
-			{/* {console.log(props)} */}
-		</article>
-	);
-};
-
+//! only ever ONE render statment in the entire app
 ReactDOM.render(<BookList />, document.getElementById('root'));
